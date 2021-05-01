@@ -1,0 +1,172 @@
+{
+  "account": {
+    "checkbox": true,
+    "serialNo": true,
+    "columns": [
+      {
+        "label": "Access",
+        "fieldName": "accessLevel.name"
+      },
+      { "label": "Name", "fieldName": "name" },
+      { "label": "Phone", "fieldName": "phone" },
+      { "label": "Email", "fieldName": "email" },
+      {
+        "label": "Last Active",
+        "fieldName": "lastActive",
+        "cssClass": "float-right",
+        "pipe": "shortDateTime"
+      }
+    ],
+    "searchFilter": [
+      {
+        "name": "access_level",
+        "type": "select",
+        "label": "Select Role",
+        "placeholder": "Admin",
+        "options": []
+      },
+      {
+        "name": "name",
+        "type": "input",
+        "label": "Name",
+        "placeholder": "Julius Cieser"
+      },
+      {
+        "name": "email",
+        "type": "input",
+        "label": "Email",
+        "placeholder": "example@gmail.com"
+      }
+    ],
+    "editOptionAction": [
+      {
+        "label": "Password Reset",
+        "cssClass": "secondary-color",
+        "fieldName": "",
+        "menuOption": "password reset"
+      },
+      {
+        "label": "Delete",
+        "cssClass": "text-danger",
+        "fieldName": "deleted_at",
+        "menuOption": "delete"
+      }
+    ],
+    "detailUrl": "modal",
+    "backendApi": "admin/delete"
+  },
+  "user": {
+    "checkbox": true,
+    "serialNo": true,
+    "columns": [
+      { "label": "Status", "fieldName": "status" },
+      { "label": "Name", "fieldName": "name" },
+      { "label": "Subscription", "fieldName": "subscription" },
+      { "label": "Course", "fieldName": "course_count" },
+      { "label": "Forum", "fieldName": "forum_count" },
+      { "label": "Warning", "fieldName": "warning" },
+      {
+        "label": "Last Active",
+        "fieldName": "last_active",
+        "cssClass": "text-right"
+      }
+    ],
+    "searchFilter": [
+      {
+        "name": "name",
+        "type": "input",
+        "label": "Name",
+        "placeholder": "Julius Cieser"
+      },
+      {
+        "name": "status",
+        "type": "select",
+        "label": "Select Status",
+        "placeholder": "banned",
+        "options": [
+          { "value": "active", "text": "Active" },
+          { "value": "banned", "text": "Banned" },
+          { "value": "deleted", "text": "Deleted" }
+        ]
+      }
+    ],
+    "editOptionAction": [
+      {
+        "label": "Make Active",
+        "cssClass": "text-success",
+        "fieldName": "status",
+        "fieldValue": "active",
+        "menuOption": "active"
+      },
+      {
+        "label": "Ban",
+        "cssClass": "secondary-color",
+        "fieldName": "status",
+        "fieldValue": "banned",
+        "menuOption": "ban"
+      },
+      {
+        "label": "Delete",
+        "cssClass": "black-color",
+        "fieldName": "deleted_at",
+        "menuOption": "delete"
+      }
+    ],
+    "detailUrl": "page",
+    "backendApi": "user/delete"
+  },
+  "course": {
+    "checkbox": true,
+    "serialNo": true,
+    "columns": [
+      { "label": "Status", "fieldName": "status" },
+      { "label": "Topic", "fieldName": "topic" },
+      { "label": "Course Name", "fieldName": "title" },
+      { "label": "Availability", "fieldName": "access" },
+      { "label": "", "fieldName": "enrolment", "icon": "fas fa-user" },
+      { "label": "", "fieldName": "completion", "icon": "fas fa-user-graduate" }
+    ],
+    "searchFilter": [
+      {
+        "name": "title",
+        "type": "input",
+        "label": "Course Name",
+        "placeholder": "Professional Web Development"
+      },
+      {
+        "name": "status",
+        "type": "input",
+        "label": "Status",
+        "placeholder": "Active"
+      }
+    ],
+    "editOptionAction": [
+      {
+        "label": "Make Active",
+        "cssClass": "text-success",
+        "fieldName": "status",
+        "fieldValue": "active"
+      },
+      {
+        "label": "Draft",
+        "cssClass": "text-warning",
+        "fieldName": "status",
+        "fieldValue": "draft"
+      },
+      {
+        "label": "Obsolete",
+        "cssClass": "secondary-color",
+        "fieldName": "status",
+        "fieldValue": "obsolete"
+      },
+      {
+        "label": "Delete",
+        "cssClass": "black-color",
+        "fieldName": "deleted_at",
+        "menuOption": "delete"
+      }
+    ],
+    "detailUrl": "modal",
+    "backendApi": "course/delete"
+  }
+}

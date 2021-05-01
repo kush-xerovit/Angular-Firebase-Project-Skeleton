@@ -3,7 +3,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/app",
-    "types": []
+    "types": ["node"]     // "types": ["node"] // fixed error of can't find require
   },
   "files": [
     "src/main.ts",

@@ -1,0 +1,42 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLongTitle">Search Form</h5>
+    <button
+      type="button"
+      class="close"
+      data-dismiss="modal"
+      aria-label="Close"
+      data-target="#close"
+      (click)="bsModalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="modalForm">
+      <div class="row">
+        <ng-container *ngFor="let field of fieldConfigs">
+          <div [ngClass]="field.class ? field.class : 'col-md-6'">
+            <div appDynamicField [field]="field" [formGroup]="modalForm"></div>
+          </div>
+        </ng-container>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-secondary mr-auto"
+      (click)="doSearch('clear')"
+    >
+      Clear
+    </button>
+    <button
+      type="button"
+      class="btn btn-primary text-capitalize"
+      (click)="doSearch()"
+    >
+      Search
+    </button>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<div class="form-group" [formGroup]="formGroup">
+  <label [for]="field.name" class="form-control-label">
+    {{ field.label }}
+    <span
+      class="text-danger"
+      *ngIf="field.validations && field.validations.length > 0"
+      >*</span
+    >
+  </label>
+  <textarea
+    [rows]="field.row ? field.row : '3'"
+    [id]="field.name"
+    [formControlName]="field.name"
+    [placeholder]="field.placeholder"
+    class="form-control"
+    [ngClass]="{
+      'is-invalid':
+        formGroup.get(field.name).touched && formGroup.get(field.name).errors
+    }"
+  ></textarea>
+  <ng-container *ngFor="let validation of field.validations">
+    <div
+      class="invalid-feedback"
+      *ngIf="formGroup.get(field.name).hasError(validation.name)"
+    >
+      {{ validation.message }}
+    </div>
+  </ng-container>
+</div>

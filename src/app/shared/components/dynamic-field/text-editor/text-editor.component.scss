@@ -1,0 +1,16 @@
+quill-editor {
+  display: block;
+}
+
+.is-invalid {
+  border: 1px solid #fb6340 !important;
+  border-radius: 0.25rem;
+}
+
+.invalid-feedback {
+  display: block;
+}
+
+::ng-deep .ql-formats {
+  margin-right: 5px !important;
+}

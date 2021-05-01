@@ -1,0 +1,76 @@
+// modal
+.modal-content {
+  .modal-body {
+    form {
+      width: 70%;
+      margin: auto;
+      padding: 1rem 0;
+    }
+    .avatar img {
+      height: 100%;
+    }
+    .table {
+      tbody {
+        tr {
+          &:last-child {
+            border-bottom: 1px solid #dee2e6;
+          }
+        }
+      }
+    }
+  }
+  .modal-footer {
+    border: none;
+  }
+  .profile {
+    padding: 1rem;
+  }
+  .access-level {
+    padding: 0.5rem 1rem 0rem 1rem;
+  }
+}
+
+//modal body scroll
+.modal-scrolly {
+  max-height: 65vh;
+  overflow-y: auto;
+}
+
+// edit-option in table
+.edit-option {
+  .card {
+    a {
+      margin-left: 10px;
+      text-decoration: underline;
+    }
+  }
+  //card up
+  .card.up {
+    position: relative;
+    background: #eeeeee;
+  }
+  .card.up:after,
+  .card.up:before {
+    position: absolute;
+    content: ' ';
+    height: 0;
+    width: 0;
+    border: solid transparent;
+    pointer-events: none;
+  }
+  .card.up:after,
+  .card.up:before {
+    bottom: 100%;
+    left: 97%;
+  }
+  .card.up:after {
+    border-bottom-color: #eeeeee;
+    border-width: 15px;
+    margin-left: -15px;
+  }
+  .card.up:before {
+    border-bottom-color: #dddddd;
+    border-width: 17px;
+    margin-left: -17px;
+  }
+}

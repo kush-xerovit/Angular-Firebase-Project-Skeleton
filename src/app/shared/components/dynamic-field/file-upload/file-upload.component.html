@@ -1,0 +1,42 @@
+<div class="row" [formGroup]="formGroup">
+  <!--document file -->
+  <div class="col-md-12">
+    <div class="form-group">
+      <div class="custom-file mb-3">
+        <input
+          type="file"
+          class="custom-file-input"
+          (change)="addFiles($event)"
+          id="customFileLang"
+          [multiple]="true"
+          [accept]="'.pdf,.doc,.docx'"
+        />
+        <label class="custom-file-label" for="customFileLang">
+          {{ 'Upload Files' }}
+        </label>
+      </div>
+      <div class="'doc-box'">
+        <div class="row mt-3">
+          <div
+            class="col-md-6"
+            *ngFor="
+              let material of formGroup.get(field.name).value;
+              let i = index
+            "
+          >
+            <p class="text-primary">
+              <i class="fas fa-file-alt"></i><span> {{ material?.name }} </span>
+            </p>
+            <button
+              class="btn btn-round btn-danger mt-2"
+              type="button"
+              (click)="removeFile(material)"
+            >
+              <i class="fa fa-times"></i> Remove
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

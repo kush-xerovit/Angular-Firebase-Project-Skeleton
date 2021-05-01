@@ -1,0 +1,20 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-lg-12">
+      <form [formGroup]="form" (ngSubmit)="onClickSubmit(form.value)">
+        <div class="col-md-12" *ngFor="let field of fieldConfigs">
+          <div appDynamicField [field]="field" [formGroup]="form"></div>
+        </div>
+
+        <input
+          type="submit"
+          [disabled]="!form.valid"
+          class="btn btn-primary"
+          value="Submit"
+        />
+        <button class="btn btn-danger" (click)="cancel()">Cancel</button>
+      </form>
+
+    </div>
+  </div>
+</div>

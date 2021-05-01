@@ -1,0 +1,42 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLongTitle">
+      <span *ngIf="data; else other"> Edit Form</span>
+      <ng-template #other> Add New Form </ng-template>
+    </h5>
+    <button
+      type="button"
+      class="close"
+      data-dismiss="modal"
+      aria-label="Close"
+      data-target="#close"
+      (click)="bsModalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body modal-scrolly">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="col-md-12" *ngFor="let field of fieldConfigs">
+        <div
+          appDynamicField
+          [field]="field"
+          [formGroup]="form"
+          (eventOutput)="getSubTopic($event, field.name)"
+        ></div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-secondary mr-auto"
+      data-dismiss="modal"
+      (click)="bsModalRef.hide()"
+    >
+      Cancel
+    </button>
+    <app-save-button (click)="onSubmit()" *ngIf="!data"></app-save-button>
+    <app-update-button (click)="onSubmit()" *ngIf="data"></app-update-button>
+  </div>
+</div>

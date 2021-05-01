@@ -1,0 +1,10 @@
+.fileinput input {
+  display: none;
+}
+.fileinput {
+  display: block;
+  .thumbnail {
+    box-shadow: none;
+    border: 1px dashed #dddddd;
+  }
+}

@@ -1,0 +1,52 @@
+<div class="fileinput text-center">
+  <input
+    type="file"
+    (change)="handleImageChange($event)"
+    #fileInput
+    [accept]="'image/*'"
+    [multiple]="field.inputType === 'gallery' ? true : false"
+  />
+  <div class="thumbnail image-aspect-ratio img-ratio-1-1">
+    <div class="inner">
+
+      <img
+        [src]="
+          !formGroup.get(field.name).value && !imagePreviewUrl
+            ? 'assets/img/default.png'
+            : imagePreviewUrl
+            ? imagePreviewUrl
+            : formGroup.get(field.name).value
+            ? formGroup.get(field.name).value
+            : 'assets/img/default.png'
+        "
+        alt="..."
+      />
+    </div>
+  </div>
+  <div>
+    <button
+      *ngIf="!formGroup.get(field.name).value && !imagePreviewUrl"
+      class="btn btn-round btn-file mt-2"
+      type="button"
+      (click)="fileInput.click()"
+    >
+      Select image  {{field.inputType}}
+    </button>
+    <span *ngIf="formGroup.get(field.name).value || imagePreviewUrl">
+      <button
+        class="btn btn-round btn-file mt-2"
+        type="button"
+        (click)="fileInput.click()"
+      >
+        Change
+      </button>
+      <button
+        class="btn btn-round btn-danger mt-2"
+        type="button"
+        (click)="handleRemove()"
+      >
+        <i class="fa fa-times"></i> Remove
+      </button>
+    </span>
+  </div>
+</div>

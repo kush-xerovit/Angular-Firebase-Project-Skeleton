@@ -1,0 +1,41 @@
+<div class="form-group" [formGroup]="formGroup">
+  <label [for]="field.name" class="form-control-label">
+    {{ field.label }}
+    <span
+      class="text-danger"
+      *ngIf="
+        field.validations &&
+        field.validations.length > 0 &&
+        field.validations[0].name === 'required'
+      "
+      >*</span
+    >
+  </label>
+  <div class="input-group">
+    <datetime-popup
+      [(value)]="selectedDate"
+      (valueChange)="onPopupChange($event)"
+      [(showPopup)]="showPicker"
+      [showDate]="true"
+      [showTime]="true"
+      [minDate]="field.minDate"
+      [class.picker-hide]="!showPicker"
+    ></datetime-popup>
+    <input
+      class="form-control"
+      (focus)="onFocus($event)"
+      (mouseup)="onFocus($event)"
+      [placeholder]="field.placeholder"
+      [formControlName]="field.name"
+      [name]="field.name"
+    />
+    <ng-container *ngFor="let validation of field.validations">
+      <div
+        class="invalid-feedback"
+        *ngIf="formGroup.get(field.name).hasError(validation.name)"
+      >
+        {{ validation.message }}
+      </div>
+    </ng-container>
+  </div>
+</div>

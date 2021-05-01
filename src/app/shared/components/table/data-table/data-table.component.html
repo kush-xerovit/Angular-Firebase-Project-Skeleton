@@ -1,0 +1,191 @@
+<!-- Search bar -->
+<div class="search-bar mb-3">
+  <form>
+    <div class="row">
+      <div class="col-10 pr-0">
+        <div class="form-group has-search mb-0">
+          <span class="fa fa-search form-control-feedback"></span>
+          <input
+            type="text"
+            class="form-control"
+            (keyup)="doChangePage()"
+            [(ngModel)]="searchValue"
+            name="search"
+          />
+        </div>
+        <!-- <input
+          class="form-control mr-sm-2"
+          type="search"
+          placeholder="Search"
+          aria-label="Search"
+          (keyup)="doChangePage()"
+          [(ngModel)]="searchValue"
+          name="search"
+        /> -->
+      </div>
+      <div class="col text-right pl-0">
+        <button
+          class="btn btn-outline-secondary filter-outline my-2 my-sm-0 text-capitalize search-filter"
+          type="button"
+          (click)="doSearch()"
+        >
+          Filter <i class="fas fa-filter"></i>
+        </button>
+        <button
+          class="btn btn-icon btn-outline-secondary filter-outline search-edit"
+          type="button"
+          (click)="editOption = !editOption"
+        >
+          <span class="btn-inner--icon"><i class="fas fa-pencil-alt"></i></span>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- Edit Option -->
+<div class="edit-option" [hidden]="!editOption">
+  <div class="card mb-3 up">
+    <div class="card-body py-2">
+      <div class="row align-items-center">
+        <div class="col-auto">
+          <span
+            >Selected <span>({{ checkedList.length }})</span></span
+          >
+        </div>
+        <div class="col-auto ml-auto">
+          <ng-container *ngFor="let option of input?.editOptionAction">
+            <a
+              href="javascript:void(0);"
+              (click)="doEditOption(option)"
+              [class]="option.cssClass ? option.cssClass : 'text-primary'"
+              >{{ option.label }}</a
+            >
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Table -->
+<div class="table-responsive">
+  <table class="table align-items-center table-flush table-hover">
+    <thead class="thead-light">
+      <tr>
+        <th *ngIf="input.checkbox">
+          <div class="form-check d-flex align-items-center">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              [(ngModel)]="isSelectedAll"
+              (change)="checkUncheckAll()"
+            />
+          </div>
+        </th>
+        <th *ngIf="input.serialNo">
+          <span class="d-flex flex-row align-items-center"> No </span>
+        </th>
+        <ng-container *ngFor="let column of input.columns">
+          <th (click)="sortHeader(column)">
+            <span
+              class="d-flex flex-row align-items-center"
+              [class]="column.cssClass"
+            >
+              <span>
+                {{ column.label }}
+                <i [class]="column.icon"></i>
+              </span>
+              <div class="d-flex flex-column ml-2 col-sort">
+                <i
+                  class="fa fa-caret-up"
+                  [class.text-dark]="
+                    config.sortBy === column.fieldName &&
+                    config.sortDirection === 'asc'
+                  "
+                ></i>
+                <i
+                  class="fa fa-caret-down"
+                  [class.text-dark]="
+                    config.sortBy === column.fieldName &&
+                    config.sortDirection === 'desc'
+                  "
+                ></i>
+              </div>
+            </span>
+          </th>
+        </ng-container>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let record of data; let i = index">
+        <td *ngIf="input.checkbox">
+          <div class="form-check d-flex align-items-center">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              name="selected"
+              [(ngModel)]="record.isSelected"
+              [value]="record.id"
+              (change)="isAllSelected()"
+            />
+          </div>
+        </td>
+        <td *ngIf="input.serialNo">{{ i + 1 }}</td>
+        <td *ngFor="let column of input.columns" (click)="doDetail(record)">
+          <ng-container
+            *ngIf="column.fieldName === 'accessLevel.name'; else other"
+          >
+            <span
+              [class]="column.cssClass"
+              [ngClass]="{
+                'badge badge-info p-2': column.fieldName === 'accessLevel.name'
+              }"
+            >
+              {{ getCellValue(record, column) }}
+            </span>
+          </ng-container>
+
+          <ng-template #other>
+            <span
+              *ngIf="
+                column.fieldName === 'status' || column.fieldName === 'topic';
+                else rest
+              "
+            >
+              <span
+                *ngIf="column.fieldName === 'status'"
+                class="badge badge-lg p-2"
+                [ngClass]="{
+                  'badge-default deleted':
+                    record[column.fieldName] === 'deleted',
+                  'badge-warning': record[column.fieldName] === 'draft',
+                  'badge-danger': record[column.fieldName] === 'banned',
+                  'badge-success active': record[column.fieldName] === 'active',
+                  'badge-secondary': record[column.fieldName] === 'obsolete'
+                }"
+                >{{ record[column.fieldName] }}</span
+              >
+
+              <span *ngIf="column.fieldName === 'topic'">
+                <span *ngFor="let v of record[column.fieldName]; let i = index">
+                  {{ v.name }}
+                  <span *ngIf="i < record[column.fieldName].length - 1">,</span>
+                </span>
+              </span>
+            </span>
+            <ng-template #rest>
+              {{ record[column.fieldName] }}
+            </ng-template>
+          </ng-template>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- pagination -->
+<app-pagination
+  [totalRecords]="totalCount"
+  (pageChange)="onPageChange($event)"
+></app-pagination>

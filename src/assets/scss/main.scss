@@ -1,0 +1,25 @@
+// Bootstrap Functions
+@import 'bootstrap/functions';
+
+// Custom Variables
+@import 'custom/variables';
+
+// Theme Variables
+@import 'theme/variables-pro';
+
+// Bootstrap Core
+@import 'bootstrap/bootstrap';
+
+// Theme Core
+@import 'theme/theme-pro';
+
+// Custom Variables
+@import 'custom/styles';
+@import 'custom/custom';
+@import 'custom/public-custom';
+
+// Angular diferences
+@import 'angular/angular-differences';
+
+// dropdown select
+@import '~@ng-select/ng-select/themes/default.theme.css';

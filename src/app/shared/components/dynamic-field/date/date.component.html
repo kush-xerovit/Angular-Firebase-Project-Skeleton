@@ -1,0 +1,42 @@
+<div class="form-group" [formGroup]="formGroup">
+  <label class="form-control-label" [for]="field.name">
+    {{ field.label }}
+    <span
+      class="text-danger"
+      *ngIf="field.validations && field.validations.length > 0"
+      >*</span
+    >
+  </label>
+  <input
+    class="form-control"
+    type="text"
+    [placeholder]="field.placeholder"
+    [formControlName]="field.name"
+    bsDatepicker
+    [bsConfig]="{
+      containerClass: 'theme-blue',
+      dateInputFormat: 'D/MM/YYYY',
+      showWeekNumbers: false
+    }"
+    [maxDate]="field.maxDate"
+    [minDate]="
+      field.name === 'endDate'
+        ? formGroup.get('startDate').value
+        : field.minDate
+    "
+    (bsValueChange)="doChangeDate($event)"
+    [ngClass]="{
+      'is-invalid':
+        formGroup.get(field.name).touched && formGroup.get(field.name).errors
+    }"
+  />
+  <!-- <pre *ngIf="formGroup.value[field.name]" class="code-preview">{{ formGroup.get(field.name).value }}</pre> -->
+  <ng-container *ngFor="let validation of field.validations">
+    <div
+      class="invalid-feedback"
+      *ngIf="formGroup.get(field.name).hasError(validation.name)"
+    >
+      {{ validation.message }}
+    </div>
+  </ng-container>
+</div>

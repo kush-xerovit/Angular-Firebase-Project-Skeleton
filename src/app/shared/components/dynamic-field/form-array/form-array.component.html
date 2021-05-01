@@ -1,0 +1,63 @@
+<div [formGroup]="formGroup">
+  <div class="card-header">
+    <div class="row align-items-center">
+      <div class="col-8">
+        <h5 class="h3 mb-0">{{ field.label }}</h5>
+      </div>
+      <div class="col-4 text-right">
+        <button
+          class="btn btn-sm btn-neutral mr-0 mobile"
+          type="button"
+          (click)="addFormGroup()"
+        >
+          <i class="fas fa-plus"></i> Add
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="card-body" [formArrayName]="field.name">
+    <ul
+      class="list-group list-group-flush list my--3"
+      *ngIf="formArrays().controls.length > 0; else noData"
+    >
+      <li
+        class="list-group-item px-0"
+        *ngFor="let item of formArrays().controls; let i = index"
+      >
+        <div class="row align-items-center">
+          <ng-container *ngFor="let field of field.formGroup">
+            <div class="col-md-2" *ngIf="field.name === 'discount'">
+              Level {{ i + 1 }}
+            </div>
+            <div class="col">
+              <div appDynamicField [field]="field" [formGroup]="item"></div>
+            </div>
+          </ng-container>
+          <div class="col-md-1">
+            <button
+              type="button"
+              class="btn btn-sm btn-danger"
+              tooltip="Delete"
+              aria-label="delete"
+              placement="left"
+              (click)="removeFormGroup(i)"
+            >
+              <i class="far fa-trash-alt"></i>
+            </button>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- No Data -->
+<ng-template #noData>
+  <!-- <li class="list-group-item"> -->
+  <div class="row align-items-center">
+    <div class="col-md-12">
+      <P> {{ 'noData' }}</P>
+    </div>
+  </div>
+  <!-- </li> -->
+</ng-template>

@@ -1,0 +1,20 @@
+<div class="form-group" [formGroup]="formGroup">
+  <label class="form-control-label">{{ field.label }}</label
+  ><br />
+  <div
+    class="custom-control custom-checkbox custom-control-inline"
+    *ngFor="let item of field.options"
+  >
+    <input
+      type="checkbox"
+      [id]="item.value"
+      [name]="field.name"
+      [formControlName]="field.name"
+      [value]="item.value"
+      class="custom-control-input"
+    />
+    <label class="custom-control-label" [for]="item.value">{{
+      item.text
+    }}</label>
+  </div>
+</div>

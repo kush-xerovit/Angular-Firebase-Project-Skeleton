@@ -10,6 +10,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown'
 import { QuillModule } from 'ngx-quill'
 import { NgSelectModule } from '@ng-select/ng-select'
 import { TagInputModule } from 'ngx-chips'
+import { BarRatingModule } from "ngx-bar-rating";
 
 // directive
 import { DynamicFieldDirective } from './dynamic-field.directive'
@@ -27,6 +28,7 @@ import { CheckBoxComponent } from './check-box/check-box.component'
 import { DateTimeComponent } from './date-time/date-time.component'
 import { ImageUploadComponent } from './image-upload/image-upload.component'
 import { FileUploadComponent } from './file-upload/file-upload.component';
+import { RatingInputComponent } from './rating-input/rating-input.component';
 
 const components = [
   InputComponent,
@@ -40,6 +42,7 @@ const components = [
   CheckBoxComponent,
   DateTimeComponent,
   ImageUploadComponent,
+  RatingInputComponent
 ]
 const directive = [DynamicFieldDirective]
 const modules = [
@@ -48,10 +51,11 @@ const modules = [
   ReactiveFormsModule,
   NgSelectModule,
   TagInputModule,
+  BarRatingModule
 ]
 
 @NgModule({
-  declarations: [...components, ...directive, FileUploadComponent],
+  declarations: [...components, ...directive, FileUploadComponent ],
   imports: [
     ...modules,
     BsDatepickerModule.forRoot(),

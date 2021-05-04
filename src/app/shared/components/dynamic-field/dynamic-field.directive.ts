@@ -23,6 +23,7 @@ import { CheckBoxComponent } from './check-box/check-box.component'
 import { DateTimeComponent } from './date-time/date-time.component'
 import { ImageUploadComponent } from './image-upload/image-upload.component'
 import { FileUploadComponent } from './file-upload/file-upload.component'
+import { RatingInputComponent } from './rating-input/rating-input.component'
 
 
 const componentMapper = {
@@ -38,6 +39,7 @@ const componentMapper = {
   checkbox: CheckBoxComponent,
   image: ImageUploadComponent,
   material: FileUploadComponent,
+  ratinginput: RatingInputComponent
 }
 
 @Directive({

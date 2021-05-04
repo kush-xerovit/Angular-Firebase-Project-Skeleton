@@ -183,6 +183,11 @@ export class LoginComponent implements OnInit {
       label: 'Tag chip',
       name: 'label',
       type: 'taginput',
+    },
+    {
+      label: 'Rating',
+      name: 'rating',
+      type: 'ratinginput',
     }
   ]
   constructor(

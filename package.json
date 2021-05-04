@@ -28,6 +28,7 @@
     "moment": "^2.29.1",
     "myanmar-nrc-x": "^1.0.1",
     "myanmar-phonenumber": "^0.3.2",
+    "ngx-bar-rating": "^2.0.0",
     "ngx-bootstrap": "^6.2.0",
     "ngx-bootstrap-datetime-popup": "^6.0.0",
     "ngx-chips": "^2.2.2",

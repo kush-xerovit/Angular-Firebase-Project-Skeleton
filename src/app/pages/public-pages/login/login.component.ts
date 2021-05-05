@@ -143,7 +143,7 @@ export class LoginComponent implements OnInit {
       ],
     },
     {
-      name: 'image',
+      name: 'logo',
       type: 'image',
     },
     {
@@ -219,8 +219,8 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     if (this.form.invalid)
       return this.formService.validateAllFormFields(this.form)
-    this.id ? this.profileService.updateProfile(this.form.value, this.id) : this.profileService.createProfile(this.form.value);
     console.log(this.form.value)
+    this.id ? this.profileService.updateProfile(this.form.value, this.id) : this.profileService.createProfile(this.form.value);
     this.router.navigate([`/about`], {
       queryParams: { data: JSON.stringify(this.form.value) },
     });

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators } from '@angular/forms'
 import { DynamicFieldModel } from 'src/app/shared/components/dynamic-field'
 import { FormService } from 'src/app/shared/services/form/form.service'
+import { ProfileService } from './profile.service';
+
 import * as moment from 'moment';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -12,6 +14,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
+  id: any
+  profile: any
   form: FormGroup
   fieldConfigs: Array<DynamicFieldModel> = [
     {
@@ -94,14 +98,14 @@ export class LoginComponent implements OnInit {
     },
     {
       label: 'Type Script',
-      name: 'Type',
+      name: 'script',
       type: 'checkbox',
       value: '',
       options: [{ value: 'Type Script', text: 'Type Script' }],
     },
     {
       label: 'Vanilla Script',
-      name: 'Vanilla',
+      name: 'vanilla',
       type: 'checkbox',
       value: '',
       options: [{ value: 'Vanilla Script', text: 'Vanilla Script' }],
@@ -192,18 +196,30 @@ export class LoginComponent implements OnInit {
   ]
   constructor(
     private formService: FormService,
-    private router: Router
+    private profileService: ProfileService,
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
     this.form = this.formService.buildForm(this.fieldConfigs)
+    this.route.queryParams.subscribe(params => {
+      if (params["id"]) {
+        this.id = params["id"]
+        this.profileService.getProfileById(this.id).subscribe(data => {
+          let profile = data.payload.data()
+          profile['scheduledTime'] = new Date(profile['scheduledTime'].seconds * 1000)
+          this.form.patchValue(profile)
+        });
+      }
+    });
   }
 
 
   onSubmit() {
     if (this.form.invalid)
       return this.formService.validateAllFormFields(this.form)
-
+    this.id ? this.profileService.updateProfile(this.form.value, this.id) : this.profileService.createProfile(this.form.value);
     console.log(this.form.value)
     this.router.navigate([`/about`], {
       queryParams: { data: JSON.stringify(this.form.value) },

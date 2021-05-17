@@ -38,7 +38,7 @@ const componentMapper = {
   taginput: TagInputComponent,
   checkbox: CheckBoxComponent,
   image: ImageUploadComponent,
-  material: FileUploadComponent,
+  file: FileUploadComponent,
   ratinginput: RatingInputComponent
 }
 

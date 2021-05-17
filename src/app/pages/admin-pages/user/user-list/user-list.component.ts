@@ -12,18 +12,20 @@ import { User } from '../user.model';
 })
 export class UserListComponent implements OnInit {
 
-  users: User[];
+  users: any;
   constructor(private userService: UserService, private router: Router) { }
 
-  ngOnInit() {
-    this.userService.getUsers().subscribe(data => {
-      this.users = data.map(e => {
-        return {
-          id: e.payload.doc.id,
-          name: e.payload.doc.get('name')
-        } as User;
-      })
-    });
+  async ngOnInit() {
+    // this.userService.getUsers().subscribe(data => {
+    //   this.users = data.map(e => {
+    //     return {
+    //       id: e.payload.doc.id,
+    //       name: e.payload.doc.get('name')
+    //     } as User;
+    //   })
+    // });
+    this.users = await this.userService.getAll();
+    console.log(this.users)
 
   }
 
@@ -37,8 +39,9 @@ export class UserListComponent implements OnInit {
     });
   }
 
-  delete(id: string) {
-    this.userService.deleteUser(id);
+  async delete(id: string) {
+    this.userService.delete(id);
+    this.users = await this.userService.getAll();
   }
 
 }

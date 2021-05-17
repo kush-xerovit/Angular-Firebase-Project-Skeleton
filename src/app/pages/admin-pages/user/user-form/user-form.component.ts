@@ -39,23 +39,19 @@ export class UserFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.formService.buildForm(this.fieldConfigs)
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe(async params => {
       if (params["id"]) {
         this.id = params["id"]
-        this.userService.getUserById(this.id).subscribe(data => {
-          this.user = {
-            id: this.id,
-            name: data.payload.get('name')
-          }
-          this.form.patchValue(this.user)
-        });
+        this.user = await this.userService.getUser(`users/${this.id}`);
+        console.log(this.user)
+        this.form.patchValue(this.user)
       }
     });
 
   }
 
-  onClickSubmit(user: User) {
-    if (this.id) this.userService.updateUser(user, this.id); else this.userService.createUser(user);
+  onClickSubmit() {
+    this.userService.saveData(this.id, this.form.value)
     this.router.navigateByUrl('admin/user-list')
   }
 

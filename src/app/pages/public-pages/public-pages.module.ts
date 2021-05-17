@@ -12,6 +12,7 @@ import { AboutComponent } from './about/about.component';
 import { LoginComponent } from './login/login.component';
 
 
+
 @NgModule({
   declarations: [HomeComponent, AboutComponent, LoginComponent],
   imports: [
@@ -20,6 +21,6 @@ import { LoginComponent } from './login/login.component';
     PublicLayoutModule,
     SharedModule,
     ReactiveFormsModule
-  ]
+  ],
 })
 export class PublicPagesModule { }

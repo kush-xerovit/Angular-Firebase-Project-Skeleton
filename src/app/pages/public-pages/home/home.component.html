@@ -9,9 +9,15 @@
           <tr *ngFor="let pro of profile">
             <td>{{ pro.name }}</td>
             <td>
-              <button class="btn btn-danger" (click)="delete(pro.id)">Delete</button>
+              <button class="btn btn-danger" (click)="delete(pro.id)">
+                Delete
+              </button>
             </td>
-            <td><button class="btn btn-primary" (click)="update(pro.id)">Update</button></td>
+            <td>
+              <button class="btn btn-primary" (click)="update(pro.id)">
+                Update
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>

@@ -1,0 +1,59 @@
+{
+  "company": [
+    { "name": "name", "fieldName": "name", "fieldType": "string" },
+    { "name": "business sector", "fieldName": "companyCategory", "fieldType": "array" },
+    { "name": "work force", "fieldName": "workfoce", "fieldType": "string" },
+    { "name": "phone number", "fieldName": "phoneNo", "fieldType": "string" },
+    { "name": "address", "fieldName": "address", "fieldType": "string" },
+    { "name": "status", "fieldName": "status", "fieldType": "string" }
+  ],
+  "candidate": [
+    { "name": "name", "fieldName": "name", "fieldType": "string" },
+    { "name": "gender", "fieldName": "gender", "fieldType": "string" },
+    { "name": "address", "fieldName": "currentAddress", "fieldType": "string" },
+    { "name": "education", "fieldName": "education", "fieldType": "string" },
+    { "name": "certificate", "fieldName": "certificate", "fieldType": "arrayObject" },
+    { "name": "experience", "fieldName": "experiences", "fieldType": "arrayObject" }
+  ],
+  "agency": [
+    { "name": "name", "fieldName": "name", "fieldType": "string" },
+    { "name": "address", "fieldName": "address", "fieldType": "string" },
+    { "name": "phone number", "fieldName": "phoneNo", "fieldType": "string" }
+  ],
+  "institute": [
+    { "name": "name", "fieldName": "name", "fieldType": "string" },
+    { "name": "address", "fieldName": "address", "fieldType": "string" },
+    { "name": "phone number", "fieldName": "phoneNo", "fieldType": "string" },
+    { "name": "institute type", "fieldName": "type", "fieldType": "string" }
+  ],
+  "job": [
+    { "name": "title", "fieldName": "title", "fieldType": "string" },
+    { "name": "job type", "fieldName": "type", "fieldType": "string" },
+    { "name": "job industry", "fieldName": "industry", "fieldType": "string" },
+    { "name": "opening status", "fieldName": "status", "fieldType": "string" },
+    { "name": "condition", "fieldName": "workingCondition", "fieldType": "string" },
+    { "name": "closing date", "fieldName": "closingDate", "fieldType": "string" }
+  ],
+  "course": [{ "name": "name", "fieldName": "title", "fieldType": "string" }],
+  "business": [
+    { "name": "name", "fieldName": "name", "fieldType": "string" },
+    { "name": "business sector", "fieldName": "businessType", "fieldType": "array" },
+    { "name": "address", "fieldName": "address", "fieldType": "string" },
+    { "name": "registration number", "fieldName": "registrationNo", "fieldType": "string" }
+  ],
+  "project": [
+    { "name": "title", "fieldName": "title", "fieldType": "string" },
+    { "name": "infrastructure", "fieldName": "basicInfrastructure", "fieldType": "array" },
+    { "name": "benefits", "fieldName": "investorIncentivesBenefits", "fieldType": "string" }
+  ],
+  "common-setting/company-category": [{ "name": "name", "fieldName": "name", "fieldType": "string" }],
+  "common-setting/industry": [{ "name": "name", "fieldName": "name", "fieldType": "string" }],
+  "common-setting/institute-type": [{ "name": "name", "fieldName": "name", "fieldType": "string" }],
+  "user-setting/user": [
+    { "name": "name", "fieldName": "name", "fieldType": "string" },
+    { "name": "email", "fieldName": "email", "fieldType": "string" },
+    { "name": "phone number", "fieldName": "phoneNo", "fieldType": "string" },
+    { "name": "status", "fieldName": "status", "fieldType": "string" },
+    { "name": "role", "fieldName": "role", "fieldType": "string" }
+  ]
+}

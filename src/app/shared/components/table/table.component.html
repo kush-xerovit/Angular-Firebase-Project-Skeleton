@@ -1,0 +1,169 @@
+<div class="card card-frame card-height mb-0">
+  <div class="card-header p-r border-0">
+    <h3 class="mb-0">{{ title }}</h3>
+    <app-csv-icon-button class="btn-export" (click)="exportCSV()" *ngIf="router.url !== '/jobs' && totalElements > 0">
+    </app-csv-icon-button>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <div class="dataTables_length" id="datatable_length">
+        <label>
+          Show
+          <select
+            name="datatable_length"
+            aria-controls="datatable"
+            class="form-control form-control-sm"
+            (change)="pageSizeChange($event)"
+          >
+            <option *ngFor="let option of pageLimitOptions" [value]="option" [selected]="option == pageSize">
+              {{ option }}
+            </option>
+          </select>
+        </label>
+      </div>
+    </div>
+    <div class="col-6">
+      <div id="datatable_filter" class="dataTables_filter">
+        <label>
+          <input
+            #search
+            type="text"
+            class="form-control form-control-sm"
+            [tooltip]="'Search by ' + searchFields"
+            placement="left"
+            placeholder="Search"
+            aria-controls="datatable"
+            (keyup)="filterTable($event)"
+            aria-label="search"
+            id="search"
+          />
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <ngx-datatable
+    #table
+    appNgxResizeWatcher
+    class="bootstrap table-bordered selection-cell"
+    [scrollbarH]="true"
+    [columnMode]="'force'"
+    [headerHeight]="50"
+    [footerHeight]="60"
+    [rowHeight]="'auto'"
+    [rows]="rows"
+    [limit]="pageSize"
+    (activate)="router.url == '/jobs' && onActivate($event)"
+  >
+    <!-- 
+          <ngx-datatable-column name="No" [sortable]="false">
+              <ng-template let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+              {{ rowIndex + 1 }}
+              </ng-template>
+          </ngx-datatable-column> 
+        -->
+    <ngx-datatable-column
+      [sortable]="false"
+      name="Logo"
+      *ngIf="module === 'company' || module === 'agency' || module === 'institute' || module === 'business'"
+    >
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        <a *ngIf="row.logo" class="avatar rounded-circle" placement="top" href="javascript:void(0)">
+          <img
+            class="logo-img"
+            alt="Image placeholder"
+            [src]="
+              row?.logo?.length > 0 && row?.logo[0]?.url ? row?.logo[0]?.url : 'assets/img/theme/default-company.png'
+            "
+          />
+        </a>
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column
+      *ngFor="let column of columns; let i = index; trackBy: trackById"
+      [name]="column.name"
+      [prop]="column.prop"
+    >
+      <ng-template let-row="row" let-rowIndex="rowIndex" let-value="value" ngx-datatable-cell-template>
+        <div
+          class="limit-text {{ column.cssClass }}"
+          *ngIf="column.prop !== 'status' && column.prop !== 'phoneNo' && column.prop !== 'email'; else other"
+        >
+          {{ value }}
+        </div>
+        <ng-template #other>
+          <span
+            *ngIf="column.prop === 'status'"
+            class="badge badge-lg"
+            [ngClass]="{
+              'badge-danger': value === 'Cancelled' || value === 'pending',
+              'badge-info': value === 'Filled',
+              'badge-success': value === 'Open' || value === 'verified',
+              'badge-warning': value === 'Closed'
+            }"
+          >
+            {{ value }}
+          </span>
+          <span *ngIf="column.prop === 'phoneNo' || column.prop === 'email'">
+            <a class="text-default" [href]="column.prop === 'phoneNo' ? 'tel:+' + value : 'mailto:' + value">{{
+              value
+            }}</a>
+          </span>
+        </ng-template>
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column *ngIf="module === 'project'" name="Infrastructure" prop="basicInfrastructure">
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value.join(', ') }}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column *ngIf="module === 'job'" name="Location" prop="location">
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value.join(', ') }}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column *ngIf="module === 'job'" name="Job Owner" prop="jobOwner">
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value.name }}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <!-- Action Column -->
+    <ngx-datatable-column name="Actions" [sortable]="false" prop="id" *ngIf="router.url !== '/jobs'">
+      <ng-template let-row="row" let-rowIndex="rowIndex" let-value="value" ngx-datatable-cell-template>
+        <div>
+          <app-verify-icon-button
+            *ngIf="
+              (module === 'candidate' || module === 'company' || module === 'institute' || module === 'agency') &&
+              row.status !== 'verified' &&
+              role === 'admin'
+            "
+            (click)="doStatusVerify(rowIndex, row.id)"
+          ></app-verify-icon-button>
+          <app-edit-icon-button (click)="doEdit(row.id)" *ngIf="role != 'candidate'"></app-edit-icon-button>
+          <app-profile-icon-button *ngIf="!checkModule()" (click)="doProfile(row.id)"></app-profile-icon-button>
+          <app-delete-icon-button
+            (click)="doDelete(rowIndex, row.id)"
+            *ngIf="role != 'candidate'"
+          ></app-delete-icon-button>
+        </div>
+      </ng-template>
+    </ngx-datatable-column>
+
+    <!--  Pagination -->
+    <!-- <ngx-datatable-footer>
+            <ng-template ngx-datatable-footer-template>
+                <div class="page-count">
+                    Showing {{ (curPage - 1) * pageSize + 1 }} to {{ totalElements > curPage * pageSize ? curPage * pageSize : totalElements }} of {{ totalElements }} records.
+                </div>
+                <datatable-pager [pagerLeftArrowIcon]="'datatable-icon-left'" [pagerRightArrowIcon]="'datatable-icon-right'" [pagerPreviousIcon]="'datatable-icon-prev'" [pagerNextIcon]="'datatable-icon-skip'" [page]="curPage" [size]="pageSize" [count]="totalElements"
+                    [hidden]="!(totalElements / pageSize > 1)" (change)="onPageChange($event)">
+                </datatable-pager>               
+            </ng-template>
+        </ngx-datatable-footer> -->
+  </ngx-datatable>
+</div>

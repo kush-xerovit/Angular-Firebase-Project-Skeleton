@@ -1,0 +1,41 @@
+.tbl-height {
+  min-height: calc(100vh - 365px);
+}
+
+.p-r {
+  position: relative;
+}
+
+.btn-export {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.5rem;
+}
+
+// .btn-export {
+//   position: relative;
+//   top: -2px;
+//   left: 4px;
+// }
+//limit text line
+.limit-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+//logo image size
+.avatar {
+  .logo-img {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+  }
+}
+
+// change verify text color
+.badge-success {
+  color: black !important;
+}

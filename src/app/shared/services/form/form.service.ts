@@ -15,10 +15,14 @@ import { ToastrService } from 'ngx-toastr'
 import * as mmpn from 'myanmar-phonenumber'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import { mimeType } from '../../components/dynamic-field/image-upload/mime-type.validator'
+import { FileUploadType } from 'src/app/shared/components/dynamic-field/file-upload/file-upload.model';
+import { FileUploadService } from '../file-upload/file-upload.service';
+
+
 
 @Injectable()
 export class FormService {
-  constructor(private fb: FormBuilder, private toastr: ToastrService) {}
+  constructor(private fb: FormBuilder, private toastr: ToastrService, private fileService: FileUploadService) {}
 
   /**
    *
@@ -178,6 +182,25 @@ export class FormService {
       title: caption,
       text: desc,
     })
+  }
+
+  async formatData(collection, data) {
+    for (const key in data) {
+      if (data.hasOwnProperty(key)) {
+        if (
+          key === FileUploadType.logo ||
+          key === FileUploadType.galleries ||
+          key === FileUploadType.documents ||
+          key === FileUploadType.cv ||
+          key === FileUploadType.coverLetter ||
+          key === FileUploadType.certificate
+        ) {
+          if (data[key] && data[key].length > 0)
+            data[key] = await this.fileService.getUploadFileURL(collection, key, data[key]);
+        }
+      }
+    }
+    return data;
   }
 
   // toastrCopiedAlert(content) {

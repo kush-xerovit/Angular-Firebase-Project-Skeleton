@@ -143,10 +143,6 @@ export class LoginComponent implements OnInit {
       ],
     },
     {
-      name: 'logo',
-      type: 'image',
-    },
-    {
       label: 'Current Date',
       name: 'scheduledTime',
       type: 'date',
@@ -165,21 +161,6 @@ export class LoginComponent implements OnInit {
           name: 'required',
           validator: Validators.required,
           message: 'Please enter description',
-        },
-      ],
-    },
-    {
-      name: 'material',
-      type: 'material',
-      // inputType: 'gallery',
-      formGroup: [
-        {
-          name: 'url',
-          type: 'input',
-        },
-        {
-          name: 'name',
-          type: 'input',
         },
       ],
     },
@@ -203,14 +184,13 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.formService.buildForm(this.fieldConfigs)
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe(async params => {
       if (params["id"]) {
         this.id = params["id"]
-        this.profileService.getProfileById(this.id).subscribe(data => {
-          let profile = data.payload.data()
-          profile['scheduledTime'] = new Date(profile['scheduledTime'].seconds * 1000)
-          this.form.patchValue(profile)
-        });
+        let record = await this.profileService.getProfile(`profile/${this.id}`)
+        record['scheduledTime'] = new Date(record['scheduledTime'].seconds * 1000)
+        this.form.patchValue(record)
+        console.log(record)
       }
     });
   }
@@ -220,10 +200,8 @@ export class LoginComponent implements OnInit {
     if (this.form.invalid)
       return this.formService.validateAllFormFields(this.form)
     console.log(this.form.value)
-    this.id ? this.profileService.updateProfile(this.form.value, this.id) : this.profileService.createProfile(this.form.value);
-    this.router.navigate([`/about`], {
-      queryParams: { data: JSON.stringify(this.form.value) },
-    });
+    this.profileService.saveData(this.id, this.form.value)
+    this.router.navigate(['/'])
   }
 
 }

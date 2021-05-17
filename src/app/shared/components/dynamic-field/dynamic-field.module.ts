@@ -11,6 +11,8 @@ import { QuillModule } from 'ngx-quill'
 import { NgSelectModule } from '@ng-select/ng-select'
 import { TagInputModule } from 'ngx-chips'
 import { BarRatingModule } from "ngx-bar-rating";
+import { ImageCropperModule } from 'ngx-image-cropper';
+
 
 // directive
 import { DynamicFieldDirective } from './dynamic-field.directive'
@@ -51,7 +53,7 @@ const modules = [
   ReactiveFormsModule,
   NgSelectModule,
   TagInputModule,
-  BarRatingModule
+  BarRatingModule,
 ]
 
 @NgModule({
@@ -64,6 +66,7 @@ const modules = [
     BsDropdownModule.forRoot(),
     DatetimePopupModule,
     QuillModule.forRoot(),
+    ImageCropperModule
   ],
   exports: [...components, ...directive, ...modules],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
